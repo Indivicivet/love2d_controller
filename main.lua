@@ -150,7 +150,7 @@ function draw_controller_state(w, h, x0, y0)
 	buttons_r = h * 0.045
 	love.graphics.circle(
 		joy:isGamepadDown("a") and "fill" or "line",
-		buttons_x0, buttons_y0 - buttons_sep,
+		buttons_x0, buttons_y0 + buttons_sep,
 		buttons_r
 	)
 	love.graphics.circle(
@@ -165,7 +165,7 @@ function draw_controller_state(w, h, x0, y0)
 	)
 	love.graphics.circle(
 		joy:isGamepadDown("y") and "fill" or "line",
-		buttons_x0, buttons_y0 + buttons_sep,
+		buttons_x0, buttons_y0 - buttons_sep,
 		buttons_r
 	)
 	
