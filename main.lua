@@ -39,10 +39,10 @@ function draw_controller_state(w, h, x0, y0)
 		leftjoy_x0 - joy_boxr, leftjoy_y0 - joy_boxr,
 		2 * joy_boxr, 2 * joy_boxr
 	)
-	leftjoy_x = leftjoy_x0 + joy_boxr * joy:getAxis(1)
-	leftjoy_y = leftjoy_y0 + joy_boxr * joy:getAxis(2)
+	leftjoy_x = leftjoy_x0 + joy_boxr * (joy ~= nil and joy:getAxis(1) or 0)
+	leftjoy_y = leftjoy_y0 + joy_boxr * (joy ~= nil and joy:getAxis(2) or 0)
 	love.graphics.circle(
-		joy:isGamepadDown("leftstick") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("leftstick") and "fill" or "line",
 		leftjoy_x, leftjoy_y, joy_stickr
 	)
 	love.graphics.circle("fill", leftjoy_x, leftjoy_y, joy_dotr)
@@ -54,10 +54,10 @@ function draw_controller_state(w, h, x0, y0)
 		rightjoy_x0 - joy_boxr, rightjoy_y0 - joy_boxr,
 		2 * joy_boxr, 2 * joy_boxr
 	)
-	rightjoy_x = rightjoy_x0 + joy_boxr * joy:getAxis(3)
-	rightjoy_y = rightjoy_y0 + joy_boxr * joy:getAxis(4)
+	rightjoy_x = rightjoy_x0 + joy_boxr * (joy ~= nil and joy:getAxis(3) or 0)
+	rightjoy_y = rightjoy_y0 + joy_boxr * (joy ~= nil and joy:getAxis(4) or 0)
 	love.graphics.circle(
-		joy:isGamepadDown("rightstick") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("rightstick") and "fill" or "line",
 		rightjoy_x, rightjoy_y, joy_stickr
 	)
 	love.graphics.circle("fill", rightjoy_x, rightjoy_y, joy_dotr)
@@ -72,7 +72,7 @@ function draw_controller_state(w, h, x0, y0)
 		lefttrig_x0 - trig_boxwr, lefttrig_y0 - trig_boxhr,
 		2 * trig_boxwr, 2 * trig_boxhr
 	)
-	amount_lefttrig = (1 + joy:getAxis(5)) / 2
+	amount_lefttrig = (1 + (joy ~= nil and joy:getAxis(5) or 0)) / 2
 	love.graphics.rectangle(
 		"fill",
 		lefttrig_x0 - trig_boxwr, lefttrig_y0 + trig_boxhr * (1 - 2 * amount_lefttrig),
@@ -87,7 +87,7 @@ function draw_controller_state(w, h, x0, y0)
 		righttrig_x0 - trig_boxwr, righttrig_y0 - trig_boxhr,
 		2 * trig_boxwr, 2 * trig_boxhr
 	)
-	amount_righttrig = (1 + joy:getAxis(6)) / 2
+	amount_righttrig = (1 + (joy ~= nil and joy:getAxis(6) or 0)) / 2
 	love.graphics.rectangle(
 		"fill",
 		righttrig_x0 - trig_boxwr, righttrig_y0 + trig_boxhr * (1 - 2 * amount_righttrig),
@@ -99,7 +99,7 @@ function draw_controller_state(w, h, x0, y0)
 	leftshoulder_x0 = lefttrig_x0
 	leftshoulder_y0 = h * 0.3
 	love.graphics.rectangle(
-		joy:isGamepadDown("leftshoulder") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("leftshoulder") and "fill" or "line",
 		leftshoulder_x0 - shoulder_boxwr, leftshoulder_y0 - shoulder_boxhr,
 		2 * shoulder_boxwr, 2 * shoulder_boxhr
 	)
@@ -107,7 +107,7 @@ function draw_controller_state(w, h, x0, y0)
 	rightshoulder_x0 = w - leftshoulder_x0
 	rightshoulder_y0 = leftshoulder_y0
 	love.graphics.rectangle(
-		joy:isGamepadDown("rightshoulder") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("rightshoulder") and "fill" or "line",
 		rightshoulder_x0 - shoulder_boxwr, rightshoulder_y0 - shoulder_boxhr,
 		2 * shoulder_boxwr, 2 * shoulder_boxhr
 	)
@@ -119,25 +119,25 @@ function draw_controller_state(w, h, x0, y0)
 	dpad_boxw = h * 0.072
 	dpad_sep = dpad_boxh / 2 + h * 0.018
 	love.graphics.rectangle(
-		joy:isGamepadDown("dpright") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("dpright") and "fill" or "line",
 		dpad_x0 + dpad_sep,
 		dpad_y0 - dpad_boxh / 2,
 		dpad_boxw, dpad_boxh
 	)
 	love.graphics.rectangle(
-		joy:isGamepadDown("dpleft") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("dpleft") and "fill" or "line",
 		dpad_x0 - dpad_boxw - dpad_sep,
 		dpad_y0 - dpad_boxh / 2,
 		dpad_boxw, dpad_boxh
 	)
 	love.graphics.rectangle(
-		joy:isGamepadDown("dpdown") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("dpdown") and "fill" or "line",
 		dpad_x0 - dpad_boxh / 2,
 		dpad_y0 + dpad_sep,
 		dpad_boxh, dpad_boxw
 	)
 	love.graphics.rectangle(
-		joy:isGamepadDown("dpup") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("dpup") and "fill" or "line",
 		dpad_x0 - dpad_boxh / 2,
 		dpad_y0 - dpad_boxw - dpad_sep,
 		dpad_boxh, dpad_boxw
@@ -149,22 +149,22 @@ function draw_controller_state(w, h, x0, y0)
 	buttons_sep = h * 0.08
 	buttons_r = h * 0.045
 	love.graphics.circle(
-		joy:isGamepadDown("a") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("a") and "fill" or "line",
 		buttons_x0, buttons_y0 + buttons_sep,
 		buttons_r
 	)
 	love.graphics.circle(
-		joy:isGamepadDown("b") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("b") and "fill" or "line",
 		buttons_x0 + buttons_sep, buttons_y0,
 		buttons_r
 	)
 	love.graphics.circle(
-		joy:isGamepadDown("x") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("x") and "fill" or "line",
 		buttons_x0 - buttons_sep, buttons_y0,
 		buttons_r
 	)
 	love.graphics.circle(
-		joy:isGamepadDown("y") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("y") and "fill" or "line",
 		buttons_x0, buttons_y0 - buttons_sep,
 		buttons_r
 	)
@@ -175,14 +175,14 @@ function draw_controller_state(w, h, x0, y0)
 	back_x0 = w * 0.4
 	back_y0 = h * 0.4
 	love.graphics.rectangle(
-		joy:isGamepadDown("back") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("back") and "fill" or "line",
 		back_x0 - backstart_boxwr, back_y0 - backstart_boxhr,
 		backstart_boxwr, backstart_boxhr
 	)
 	start_x0 = w - back_x0
 	start_y0 = back_y0
 	love.graphics.rectangle(
-		joy:isGamepadDown("start") and "fill" or "line",
+		joy ~= nil and joy:isGamepadDown("start") and "fill" or "line",
 		start_x0 - backstart_boxwr, start_y0 - backstart_boxhr,
 		backstart_boxwr, backstart_boxhr
 	)
