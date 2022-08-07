@@ -23,7 +23,9 @@ function draw_controller_state(w, h, x0, y0)
 	
 	text_scale = math.min(math.min(h, w) / (20 * font_size_big), 1)
 	love.graphics.print(
-		"last pressed: " .. (last_pressed or "none"),
+		"last pressed: "
+			.. (last_pressed or "none")
+			.. (joy ~= nil or " (no controller found!)"),
 		font_big, w * 0.25, h * 0.05,
 		0, text_scale, text_scale
 	)
